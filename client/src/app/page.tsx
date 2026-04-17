@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from '@/components/layout/Header'
-import { Footer } from '@/components/layout/Footer'
+import Footer from '@/components/layout/Footer'
 import HeroBanner from '@/components/sections/HeroBanner'
 import StatsSection  from '@/components/sections/StatisticsCards'
 import Technologies from '@/components/sections/Technologies'
@@ -10,8 +10,6 @@ import HowItWorks from '@/components/sections/HowItWorks'
 const Home: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
-      <Header />
-      
       <main>
         <div id="page-home">
           <HeroBanner />
