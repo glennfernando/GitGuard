@@ -1,12 +1,11 @@
 import React from 'react'
+import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import HeroBanner from '@/components/sections/HeroBanner'
-import StatisticsCards from '@/components/sections/StatisticsCards'
+import StatsSection  from '@/components/sections/StatisticsCards'
 import Technologies from '@/components/sections/Technologies'
 import PlatformTabs from '@/components/sections/PlatformTabs'
-import Testimonials from '@/components/sections/Testimonials'
-import PartnerLogos from '@/components/sections/PartnerLogos'
-import Resources from '@/components/sections/Resources'
+import HowItWorks from '@/components/sections/HowItWorks'
 
 const Home: React.FC = () => {
   return (
@@ -14,12 +13,10 @@ const Home: React.FC = () => {
       <main>
         <div id="page-home">
           <HeroBanner />
-          <StatisticsCards />
+          <StatsSection />
           <Technologies />
           <PlatformTabs />
-          <Testimonials />
-          <PartnerLogos />
-          <Resources />
+          <HowItWorks />
         </div>
       </main>
       
