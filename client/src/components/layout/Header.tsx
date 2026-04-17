@@ -26,7 +26,6 @@ type GuestNavItem = {
 
 const guestNavItems: GuestNavItem[] = [
   { label: 'Home', href: '/#home', sectionId: 'home' },
-  { label: 'Stats', href: '/#stats', sectionId: 'stats' },
   { label: 'Features', href: '/#features', sectionId: 'features' },
   { label: 'How it Works', href: '/#how-it-works', sectionId: 'how-it-works' },
 ]
@@ -130,10 +129,10 @@ export default function Header({ onLogin, onRegister }: HeaderProps) {
   }, [isAuthed, pathname])
 
   const navLinkClass = (isActive: boolean) =>
-    `inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold tracking-wide transition-all duration-200 ${
+    `inline-flex items-center rounded-lg px-4 py-2.5 text-sm font-semibold transition-all duration-200 ${
       isActive
-        ? 'bg-linear-to-r from-[#1f6feb]/90 to-[#58a6ff]/70 text-white shadow-[0_6px_24px_rgba(31,111,235,0.35)]'
-        : 'text-[#c9d1d9] hover:text-white hover:bg-white/10'
+        ? 'bg-linear-to-r from-[#1f6feb] to-[#58a6ff] text-white shadow-[0_4px_16px_rgba(31,111,235,0.3)]'
+        : 'text-[#c9d1d9] hover:text-white hover:bg-white/8 border border-transparent hover:border-white/15'
     }`
 
   const handleSignOut = () => {
@@ -204,35 +203,35 @@ export default function Header({ onLogin, onRegister }: HeaderProps) {
       initial={false}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-      className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#0b1220]/88 backdrop-blur-xl"
+      className="sticky top-0 z-50 w-full border-b border-blue-500/10 bg-gradient-to-b from-[#0b1220]/92 via-[#0d1528]/88 to-[#0a0f1f]/85 backdrop-blur-2xl"
     >
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#58a6ff]/70 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#58a6ff]/50 to-transparent" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-10">
         <div className="flex h-18 items-center justify-between gap-4">
           <Link
             href="/"
             aria-label="GitGuard home"
-            className="group inline-flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-2.5 py-2 transition-all hover:border-[#58a6ff]/45 hover:bg-white/10"
+            className="group inline-flex items-center gap-3 rounded-lg border border-blue-400/30 bg-linear-to-br from-white/8 to-white/4 px-3 py-2.5 transition-all hover:border-blue-300/60 hover:from-white/12 hover:to-white/8 shadow-[0_4px_12px_rgba(88,166,255,0.1)]"
           >
-            <span className="relative inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[#58a6ff]/30 bg-[#101d34] shadow-[0_0_0_1px_rgba(88,166,255,0.2),0_6px_18px_rgba(13,24,45,0.45)]">
+            <span className="relative inline-flex h-9 w-9 items-center justify-center rounded-lg border border-blue-400/40 bg-linear-to-br from-blue-500/20 to-blue-600/10 shadow-[0_0_0_1px_rgba(88,166,255,0.3),0_4px_12px_rgba(13,24,45,0.5)]">
               <Image
                 src="/logomailinblack2.webp"
                 alt="GitGuard Logo"
                 width={30}
                 height={30}
-                className="h-7 w-7 object-contain"
+                className="h-6 w-6 object-contain"
               />
             </span>
             <span className="flex items-center gap-2">
-              <span className="rs-text-glow text-lg font-bold tracking-tight text-white">GitGuard</span>
-              <span className="hidden rounded-full border border-white/20 bg-white/5 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#9fb5d4] sm:inline-flex">
-                Security Suite
+              <span className="text-base font-black tracking-tight text-white" style={{ fontFamily: 'var(--font-black-ops-one)' }}>GitGuard</span>
+              <span className="hidden rounded-full border border-blue-400/30 bg-blue-500/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-blue-300 sm:inline-flex">
+                Beta
               </span>
             </span>
           </Link>
 
-          <nav className="hidden md:flex items-center rounded-full border border-white/10 bg-white/4 p-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+          <nav className="hidden md:flex items-center rounded-lg border border-white/10 bg-white/5 p-1 shadow-[inset_0_1px_0_rgba(88,166,255,0.1)] backdrop-blur-sm">
             {isAuthed ? (
               <>
                 {authedNavItems.map((item) => {
@@ -271,7 +270,7 @@ export default function Header({ onLogin, onRegister }: HeaderProps) {
               <button
                 type="button"
                 onClick={handleSignOut}
-                className="hidden md:inline-flex rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-[#c9d1d9] transition-all hover:border-[#f85149]/50 hover:bg-[#f85149]/12 hover:text-white"
+                className="hidden md:inline-flex rounded-lg border border-red-500/30 px-5 py-2.5 text-sm font-semibold text-[#c9d1d9] transition-all hover:border-red-500/60 hover:bg-red-500/12 hover:text-white"
               >
                 Sign out
               </button>
@@ -280,14 +279,14 @@ export default function Header({ onLogin, onRegister }: HeaderProps) {
                 <button
                   type="button"
                   onClick={openLogin}
-                  className="hidden md:inline-flex rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-[#c9d1d9] transition-all hover:border-[#58a6ff]/50 hover:bg-white/8 hover:text-white"
+                  className="hidden md:inline-flex rounded-lg border border-blue-400/40 px-5 py-2.5 text-sm font-semibold text-[#c9d1d9] transition-all hover:border-blue-400/70 hover:bg-blue-400/8 hover:text-white"
                 >
                   Sign in
                 </button>
                 <button
                   type="button"
                   onClick={openRegister}
-                  className="hidden md:inline-flex rounded-full bg-linear-to-r from-[#1f6feb] to-[#58a6ff] px-4 py-2 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(31,111,235,0.35)] transition-all hover:brightness-110"
+                  className="hidden md:inline-flex rounded-lg bg-linear-to-r from-blue-600 to-blue-500 px-5 py-2.5 text-sm font-semibold text-white shadow-[0_4px_16px_rgba(37,99,235,0.4)] transition-all hover:shadow-[0_6px_24px_rgba(37,99,235,0.6)] hover:-translate-y-0.5"
                 >
                   Create account
                 </button>
@@ -297,7 +296,7 @@ export default function Header({ onLogin, onRegister }: HeaderProps) {
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-              className="md:hidden inline-flex items-center justify-center rounded-lg border border-white/15 bg-white/5 p-2 text-[#c9d1d9] transition-all hover:border-[#58a6ff]/50 hover:text-white"
+              className="md:hidden inline-flex items-center justify-center rounded-lg border border-blue-400/30 bg-blue-400/8 p-2.5 text-blue-300 transition-all hover:border-blue-400/60 hover:bg-blue-400/12 hover:text-blue-200"
               aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-navigation"
@@ -342,7 +341,7 @@ export default function Header({ onLogin, onRegister }: HeaderProps) {
               transition={mobileMenuTransition}
             >
               <motion.div
-                className="mb-4 rounded-2xl border border-white/10 bg-linear-to-b from-white/10 to-white/5 p-3 shadow-[0_14px_30px_rgba(0,0,0,0.32)]"
+                className="mb-4 rounded-xl border border-blue-400/20 bg-linear-to-b from-blue-400/8 to-blue-400/4 p-3 shadow-[0_8px_20px_rgba(0,0,0,0.25)] backdrop-blur-sm"
                 initial={false}
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: -6, opacity: 0 }}
@@ -358,10 +357,10 @@ export default function Header({ onLogin, onRegister }: HeaderProps) {
                           href={item.href}
                           onClick={closeMobileMenu}
                           className={
-                            'rounded-xl border px-3.5 py-2.5 text-sm font-semibold transition-all ' +
+                            'rounded-lg border px-4 py-2.5 text-sm font-semibold transition-all ' +
                             (active
-                              ? 'border-[#58a6ff]/50 bg-[#1f6feb]/20 text-white'
-                              : 'border-white/12 text-[#c9d1d9] hover:border-[#58a6ff]/45 hover:bg-white/8 hover:text-white')
+                              ? 'border-blue-400/50 bg-blue-600/15 text-blue-100'
+                              : 'border-white/12 text-[#c9d1d9] hover:border-blue-400/40 hover:bg-blue-400/8 hover:text-white')
                           }
                           aria-current={active ? 'page' : undefined}
                         >
@@ -373,7 +372,7 @@ export default function Header({ onLogin, onRegister }: HeaderProps) {
                     <button
                       type="button"
                       onClick={handleSignOut}
-                      className="rounded-xl border border-white/12 px-3.5 py-2.5 text-left text-sm font-semibold text-[#c9d1d9] transition-all hover:border-[#f85149]/55 hover:bg-[#f85149]/15 hover:text-white"
+                      className="rounded-lg border border-red-500/30 px-4 py-2.5 text-left text-sm font-semibold text-[#c9d1d9] transition-all hover:border-red-500/60 hover:bg-red-500/12 hover:text-white"
                     >
                       Sign out
                     </button>
@@ -389,10 +388,10 @@ export default function Header({ onLogin, onRegister }: HeaderProps) {
                           href={item.href}
                           onClick={(event) => handleGuestNavClick(event, item.sectionId)}
                           className={
-                            'rounded-xl border px-3.5 py-2.5 text-sm font-semibold transition-all ' +
+                            'rounded-lg border px-4 py-2.5 text-sm font-semibold transition-all ' +
                             (active
-                              ? 'border-[#58a6ff]/50 bg-[#1f6feb]/20 text-white'
-                              : 'border-white/12 text-[#c9d1d9] hover:border-[#58a6ff]/45 hover:bg-white/8 hover:text-white')
+                              ? 'border-blue-400/50 bg-blue-600/15 text-blue-100'
+                              : 'border-white/12 text-[#c9d1d9] hover:border-blue-400/40 hover:bg-blue-400/8 hover:text-white')
                           }
                           aria-current={active ? 'page' : undefined}
                         >
@@ -406,7 +405,7 @@ export default function Header({ onLogin, onRegister }: HeaderProps) {
                         closeMobileMenu()
                         openLogin()
                       }}
-                      className="rounded-xl border border-white/12 px-3.5 py-2.5 text-left text-sm font-semibold text-[#c9d1d9] transition-all hover:border-[#58a6ff]/45 hover:bg-white/8 hover:text-white"
+                      className="rounded-lg border border-blue-400/40 px-4 py-2.5 text-left text-sm font-semibold text-[#c9d1d9] transition-all hover:border-blue-400/70 hover:bg-blue-400/8 hover:text-white"
                     >
                       Sign in
                     </button>
@@ -416,7 +415,7 @@ export default function Header({ onLogin, onRegister }: HeaderProps) {
                         closeMobileMenu()
                         openRegister()
                       }}
-                      className="rounded-xl bg-linear-to-r from-[#1f6feb] to-[#58a6ff] px-3.5 py-2.5 text-left text-sm font-semibold text-white shadow-[0_10px_22px_rgba(31,111,235,0.38)]"
+                      className="rounded-lg bg-linear-to-r from-blue-600 to-blue-500 px-4 py-2.5 text-left text-sm font-semibold text-white shadow-[0_4px_16px_rgba(37,99,235,0.4)]"
                     >
                       Create account
                     </button>

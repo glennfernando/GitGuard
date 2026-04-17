@@ -2,7 +2,7 @@ import React from 'react'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import HeroBanner from '@/components/sections/HeroBanner'
-import StatsSection  from '@/components/sections/StatisticsCards'
+import AnalyzingSection from '@/components/sections/AnalyzingSection'
 import FeaturesShowcase from '@/components/sections/FeaturesShowcase'
 import PlatformTabs from '@/components/sections/PlatformTabs'
 import HowItWorks from '@/components/sections/HowItWorks'
@@ -17,8 +17,8 @@ const Home: React.FC = () => {
           <section id="home">
             <HeroBanner />
           </section>
-          <section id="stats">
-            <StatsSection />
+          <section>
+            <AnalyzingSection />
           </section>
           <section id="features">
             <FeaturesShowcase />

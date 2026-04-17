@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
-import { Inter, Geist } from "next/font/google";
+import { Inter, Geist, Black_Ops_One } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import AuthGate from "@/components/auth/AuthGate";
 import LenisProvider from "@/components/providers/LenisProvider";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+
+const blackOpsOne = Black_Ops_One({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-black-ops-one',
+});
 
 const inter = Inter({
   subsets: ["latin"],
@@ -37,7 +43,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", inter.variable, "font-sans", geist.variable)}
+      className={cn("h-full", "antialiased", inter.variable, "font-sans", geist.variable, blackOpsOne.variable)}
     >
       <body className="min-h-full flex flex-col">
         <LenisProvider>

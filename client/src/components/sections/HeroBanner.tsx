@@ -65,18 +65,24 @@ const HeroBanner: React.FC = () => {
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           <div className="text-center md:text-left" ref={textRef}>
-            <motion.h1
-              className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-white tracking-tight"
+            <motion.div
+              className="relative mb-6"
               variants={itemVariants}
             >
-              GITGUARD
-            </motion.h1>
+              {/* Glow background for text */}
+              <div className="absolute -inset-8 bg-linear-to-b from-blue-500/30 via-purple-500/20 to-transparent blur-3xl rounded-full pointer-events-none"></div>
+              
+              <h1 className="relative text-6xl md:text-7xl lg:text-8xl font-black leading-tight tracking-tighter" style={{ fontFamily: 'var(--font-black-ops-one)' }}>
+                <span className="text-blue-400 drop-shadow-[0_0_30px_rgba(96,165,250,0.6)]">GIT</span>
+                <span className="text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.4)]">GUARD</span>
+              </h1>
+            </motion.div>
 
             <motion.div
-              className="text-lg md:text-xl mb-8 max-w-2xl text-[#a0aec0] font-light"
+              className="text-lg md:text-xl mb-8 max-w-2xl text-[#a0aec0] font-light leading-relaxed"
               variants={itemVariants}
             >
-              GitGuard scans GitHub repositories for malware risk
+              <p className="text-sm md:text-base text-[#8b949e]">Identify malware risks, verify licenses, analyze code quality, and make confident decisions about repository dependencies.</p>
             </motion.div>
 
             <motion.div variants={itemVariants}>
@@ -84,9 +90,9 @@ const HeroBanner: React.FC = () => {
                 href="/login"
                 variant="primary"
                 size="large"
-                className="inline-flex"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-linear-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-semibold text-lg shadow-[0_0_30px_rgba(37,99,235,0.5)] hover:shadow-[0_0_50px_rgba(37,99,235,0.8)] transition-all duration-300 border border-blue-400/60 hover:border-blue-300/80 rounded-lg hover:-translate-y-1"
               >
-                Start a GitGuard scan
+                Start Scan
               </Button>
             </motion.div>
           </div>
@@ -96,13 +102,15 @@ const HeroBanner: React.FC = () => {
             variants={itemVariants}
             ref={videoRef}
           >
-            <div className="rounded-2xl overflow-hidden border border-blue-400/30 shadow-2xl shadow-blue-500/20 bg-black/60 backdrop-blur-sm">
+            <div className="rounded-2xl overflow-hidden border border-blue-400/30 shadow-2xl shadow-blue-500/20 bg-black/60 backdrop-blur-sm group">
               <video
-                className="w-full h-auto"
+                className="w-full h-auto block group-hover:cursor-pointer"
                 autoPlay
                 muted
                 loop
                 playsInline
+                controlsList="nodownload"
+                style={{ pointerEvents: 'none' }}
                 onError={(e) => {
                   const target = e.target as HTMLVideoElement;
                   target.style.display = 'none';
@@ -112,8 +120,7 @@ const HeroBanner: React.FC = () => {
                   }
                 }}
               >
-                <source src="/videos/kling_20260417_作品_Video_Back_336_0 (1).mp4" type="video/mp4" />
-                <source src="/videos/plateforme.webm" type="video/webm" />
+                <source src="/videos/Video.Guru_20260417_190512318.mp4" type="video/mp4" />
               </video>
             </div>
           </motion.div>
