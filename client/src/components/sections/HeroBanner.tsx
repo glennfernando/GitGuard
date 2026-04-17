@@ -2,7 +2,6 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Globe, Atom, Lock, Database, Send, AtSign } from 'lucide-react'
 import Button from '../ui/Button'
 import { SocialOrbit } from '../ui/social-orbit'
 
@@ -30,10 +29,10 @@ const HeroBanner: React.FC = () => {
   }
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 to-white">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-linear-to-br from-blue-50 to-white">
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-purple-600/10"></div>
+        <div className="absolute inset-0 bg-linear-to-br from-blue-600/10 to-purple-600/10"></div>
         
         {/* Social Orbit Bubbles */}
         <div className="absolute inset-0 flex items-center justify-center mb-32" style={{ marginBottom: '50px' }}>
@@ -87,7 +86,7 @@ const HeroBanner: React.FC = () => {
       </motion.div>
 
       {/* Gradient Overlay */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-white to-transparent"></div>
     </section>
   )
 }

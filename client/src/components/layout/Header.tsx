@@ -1,15 +1,42 @@
 'use client'
 
 import React, { useState } from 'react'
-import { ChevronDown, ArrowLeft, Menu, X, Globe } from 'lucide-react'
+import { ChevronDown, Menu, X, Globe } from 'lucide-react'
 import Button from '../ui/Button'
 import Image from 'next/image'
+import Link from 'next/link'
+
+type SecureMenuItem = {
+  title: string
+  description?: string
+  icon?: string
+  href: string
+  large?: boolean
+  external?: boolean
+}
+
+type SolutionCategory = {
+  category: string
+  links: { title: string; href: string }[]
+}
+
+type BasicMenuItem = {
+  title: string
+  href: string
+  external?: boolean
+}
+
+type HeaderMenuItem = {
+  title: string
+  submenu: string
+  items: SecureMenuItem[] | SolutionCategory[] | BasicMenuItem[]
+}
 
 const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null)
 
-  const menuItems = [
+  const menuItems: HeaderMenuItem[] = [
     {
       title: 'Secure your organization',
       submenu: 'secure',
@@ -150,7 +177,7 @@ const Header: React.FC = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="/" className="flex items-center">
+          <Link href="/" className="flex items-center">
             <Image
               src="/logomailinblack2.webp"
               alt="GitGuard"
@@ -166,7 +193,7 @@ const Header: React.FC = () => {
                 }
               }}
             />
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
@@ -190,7 +217,7 @@ const Header: React.FC = () => {
                     <div className="bg-white rounded-lg shadow-xl border border-gray-200 p-6">
                       {item.submenu === 'secure' && (
                         <div className="space-y-4">
-                          {item.items.map((subItem: any, index) => (
+                          {(item.items as SecureMenuItem[]).map((subItem, index) => (
                             <div
                               key={index}
                               className={`p-4 rounded-lg border ${subItem.large ? 'col-span-2' : ''} hover:bg-gray-50 transition-colors`}
@@ -222,13 +249,13 @@ const Header: React.FC = () => {
 
                       {item.submenu === 'solutions' && (
                         <div className="grid grid-cols-3 gap-6">
-                          {item.items.map((category: any, index) => (
+                          {(item.items as SolutionCategory[]).map((category, index) => (
                             <div key={index}>
                               <h4 className="font-semibold text-xs text-gray-600 uppercase mb-3">
                                 {category.category}
                               </h4>
                               <ul className="space-y-2">
-                                {category.links.map((link: any, linkIndex: number) => (
+                                {category.links.map((link, linkIndex) => (
                                   <li key={linkIndex}>
                                     <a
                                       href={link.href}
@@ -246,7 +273,7 @@ const Header: React.FC = () => {
 
                       {item.submenu !== 'secure' && item.submenu !== 'solutions' && (
                         <ul className="space-y-2">
-                          {item.items.map((subItem: any, index) => (
+                          {(item.items as BasicMenuItem[]).map((subItem, index) => (
                             <li key={index}>
                               <a
                                 href={subItem.href}
@@ -331,7 +358,7 @@ const Header: React.FC = () => {
                 
                 {activeSubmenu === item.submenu && (
                   <div className="mt-2 pl-4 space-y-2">
-                    {item.items.map((subItem: any, index) => (
+                    {(item.items as BasicMenuItem[]).map((subItem, index) => (
                       <a
                         key={index}
                         href={subItem.href}
