@@ -1,11 +1,34 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { Biohazard, Skull, Target } from 'lucide-react'
 import { ArrowRight } from 'lucide-react'
+import gsap from 'gsap'
 
 const Technologies: React.FC = () => {
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (contentRef.current) {
+        const scrollY = window.scrollY
+        const rect = sectionRef.current?.getBoundingClientRect()
+        if (rect && rect.top < window.innerHeight && rect.bottom > 0) {
+          gsap.to(contentRef.current, {
+            y: (rect.top - window.innerHeight / 2) * 0.4,
+            duration: 0.1,
+            overwrite: 'auto'
+          })
+        }
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   const technologies = [
     {
       title: 'Keyword intelligence',
@@ -50,8 +73,8 @@ const Technologies: React.FC = () => {
   }
 
   return (
-    <section className="py-16 bg-black text-white">
-      <div className="container mx-auto px-4">
+    <section ref={sectionRef} className="py-16 bg-black text-white">
+      <div className="container mx-auto px-4" ref={contentRef}>
         {/* Section Title */}
         <motion.div
           className="text-center mb-16"
@@ -127,7 +150,7 @@ const Technologies: React.FC = () => {
               </div>
 
               {/* Hover Effect */}
-              <div className="absolute inset-0 bg-gradient-to-t from-blue-600/20 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 bg-linear-to-t from-blue-600/20 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </motion.div>
           ))}
         </motion.div>

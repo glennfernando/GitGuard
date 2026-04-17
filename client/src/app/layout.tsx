@@ -3,6 +3,7 @@ import { Inter, Geist } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import AuthGate from "@/components/auth/AuthGate";
+import LenisProvider from "@/components/providers/LenisProvider";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -39,7 +40,9 @@ export default function RootLayout({
       className={cn("h-full", "antialiased", inter.variable, "font-sans", geist.variable)}
     >
       <body className="min-h-full flex flex-col">
-        <AuthGate>{children}</AuthGate>
+        <LenisProvider>
+          <AuthGate>{children}</AuthGate>
+        </LenisProvider>
       </body>
     </html>
   );

@@ -1,8 +1,9 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { Link2, ScanSearch, ShieldCheck, CircleCheckBig } from 'lucide-react'
+import gsap from 'gsap'
 
 const steps = [
   {
@@ -32,9 +33,31 @@ const steps = [
 ]
 
 const HowItWorks: React.FC = () => {
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (contentRef.current) {
+        const scrollY = window.scrollY
+        const rect = sectionRef.current?.getBoundingClientRect()
+        if (rect && rect.top < window.innerHeight && rect.bottom > 0) {
+          gsap.to(contentRef.current, {
+            y: (rect.top - window.innerHeight / 2) * 0.3,
+            duration: 0.1,
+            overwrite: 'auto'
+          })
+        }
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
-    <section className="py-16 bg-white">
-      <div className="container mx-auto px-4">
+    <section ref={sectionRef} className="py-16 bg-white">
+      <div className="container mx-auto px-4" ref={contentRef}>
         <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}

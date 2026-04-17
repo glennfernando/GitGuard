@@ -1,6 +1,32 @@
+'use client'
+
+import { useEffect, useRef } from 'react'
 import { ShieldCheck, GitFork, Users2, CheckCircle2 } from "lucide-react";
+import gsap from 'gsap'
 
 function StatsSection() {
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const statsRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (statsRef.current) {
+        const scrollY = window.scrollY
+        const rect = sectionRef.current?.getBoundingClientRect()
+        if (rect && rect.top < window.innerHeight && rect.bottom > 0) {
+          gsap.to(statsRef.current, {
+            y: (rect.top - window.innerHeight / 2) * 0.3,
+            duration: 0.1,
+            overwrite: 'auto'
+          })
+        }
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   const stats = [
     {
       icon: GitFork,
@@ -24,8 +50,8 @@ function StatsSection() {
   ];
 
   return (
-    <section className="py-10 sm:py-12 bg-background border-y border-[#30363d]">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-14">
+    <section ref={sectionRef} className="py-10 sm:py-12 bg-background border-y border-[#30363d]">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-14" ref={statsRef}>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
           {stats.map((stat, index) => (
             <div key={index} className="text-center group">
