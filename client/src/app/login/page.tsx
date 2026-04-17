@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState, type FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { getAuthToken, setAuthSession, validateAuthSession } from '@/lib/authSession'
+import { getApiBaseUrl } from '@/lib/apiBase'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -14,7 +15,7 @@ export default function LoginPage() {
   const [error, setError] = useState('')
   const [nextPath, setNextPath] = useState('/analyze')
 
-  const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL || process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'
+  const apiBase = getApiBaseUrl()
   const githubClientId = process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID || process.env.NEXT_PUBLIC_GITHUB_OAUTH_CLIENT_ID || ''
   const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID || ''
   const redirectUri = useMemo(() => {
