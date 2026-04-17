@@ -1,5 +1,4 @@
 import React from 'react'
-import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import HeroBanner from '@/components/sections/HeroBanner'
 import StatisticsCards from '@/components/sections/StatisticsCards'
@@ -12,8 +11,6 @@ import Resources from '@/components/sections/Resources'
 const Home: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
-      <Header />
-      
       <main>
         <div id="page-home">
           <HeroBanner />
