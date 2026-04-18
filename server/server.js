@@ -16,12 +16,13 @@ const defaultAllowedOrigins = [
     "http://127.0.0.1:5173",
     "http://localhost:4173",
     "http://127.0.0.1:4173",
+    "https://git-guard-cyan.vercel.app",
 ];
 const envAllowedOrigins = String(process.env.FRONTEND_URL || "")
     .split(",")
     .map((origin) => origin.trim())
     .filter(Boolean);
-const allowedOrigins = new Set(envAllowedOrigins.length > 0 ? envAllowedOrigins : defaultAllowedOrigins);
+const allowedOrigins = new Set([...defaultAllowedOrigins, ...envAllowedOrigins]);
 const allowPrivateNetworkOrigins = process.env.CORS_ALLOW_PRIVATE_NETWORK !== "0";
 
 function isPrivateNetworkHost(hostname) {
