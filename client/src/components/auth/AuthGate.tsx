@@ -37,7 +37,7 @@ export default function AuthGate({ children }: PropsWithChildren) {
           if (cancelled) return
 
           if (valid && routeIsAuthPage) {
-            router.replace('/analyze')
+            router.replace('/dashboard')
             setIsReady(false)
             return
           }
@@ -48,7 +48,7 @@ export default function AuthGate({ children }: PropsWithChildren) {
       }
 
       if (!token) {
-        const nextTarget = pathname ? encodeURIComponent(pathname) : encodeURIComponent('/analyze')
+        const nextTarget = pathname ? encodeURIComponent(pathname) : encodeURIComponent('/dashboard')
         router.replace(`/login?next=${nextTarget}`)
         setIsReady(false)
         return
@@ -58,7 +58,7 @@ export default function AuthGate({ children }: PropsWithChildren) {
       if (cancelled) return
 
       if (!valid) {
-        const nextTarget = pathname ? encodeURIComponent(pathname) : encodeURIComponent('/analyze')
+        const nextTarget = pathname ? encodeURIComponent(pathname) : encodeURIComponent('/dashboard')
         router.replace(`/login?next=${nextTarget}`)
         setIsReady(false)
         return
