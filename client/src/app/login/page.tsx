@@ -24,7 +24,7 @@ export default function LoginPage() {
 
       const valid = await validateAuthSession(validatedApiBase)
       if (valid) {
-        router.replace('/analyze')
+        router.replace('/dashboard')
       }
     }
     checkSession()
@@ -64,7 +64,7 @@ export default function LoginPage() {
 
       const params = new URLSearchParams(window.location.search)
       const nextTarget = params.get('next')
-      const redirectTo = nextTarget && nextTarget.startsWith('/') ? nextTarget : '/analyze'
+      const redirectTo = nextTarget && nextTarget.startsWith('/') ? nextTarget : '/dashboard'
       router.push(redirectTo)
     } catch {
       setError('Unable to reach the server. Please check backend connectivity.')

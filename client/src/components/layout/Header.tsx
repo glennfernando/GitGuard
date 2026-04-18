@@ -40,6 +40,7 @@ export default function Header({ onLogin, onRegister }: HeaderProps) {
   const authedNavItems: NavItem[] = [
     { label: 'Home', href: '/', activeOn: ['/'] },
     { label: 'Human Analyzer', href: '/analyze', activeOn: ['/analyze'] },
+    { label: 'Dashboard', href: '/dashboard', activeOn: ['/dashboard'] },
     { label: 'AI Analyzer', href: '/ai-analyze', activeOn: ['/ai-analyze', '/ai-analysis'] },
     { label: 'Malware Detector', href: '/malware-detection', activeOn: ['/malware-detection', '/malware'] },
     { label: 'User Anomaly', href: '/user-anomaly', activeOn: ['/user-anomaly'] },

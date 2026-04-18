@@ -1,7 +1,9 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const mongoose = require("mongoose");
 
 const User = require("../models/user.models");
+const UserActivity = require("../models/userActivity.models");
 
 const normalizeEmail = (value) => {
     return typeof value === "string" ? value.trim().toLowerCase() : "";
@@ -133,5 +135,122 @@ exports.me = async (req, res) => {
         });
     } catch {
         return res.status(500).json({ message: "Unable to verify session" });
+    }
+};
+
+exports.dashboard = async (req, res) => {
+    try {
+        const userId = req.user;
+        if (!userId) {
+            return res.status(401).json({ message: "Unauthorized" });
+        }
+
+        const user = await User.findById(userId)
+            .select("_id username email createdAt updatedAt")
+            .lean();
+
+        if (!user) {
+            return res.status(401).json({ message: "Unauthorized" });
+        }
+
+        const userObjectId = new mongoose.Types.ObjectId(String(userId));
+
+        const [
+            totalActivities,
+            cacheHitActivities,
+            distinctRepoSlugs,
+            recentActivities,
+            byActionAgg,
+            cachedRepositoriesAgg,
+        ] = await Promise.all([
+            UserActivity.countDocuments({ userId }),
+            UserActivity.countDocuments({ userId, fromCache: true }),
+            UserActivity.distinct("repoSlug", { userId, repoSlug: { $ne: null } }),
+            UserActivity.find({ userId })
+                .sort({ createdAt: -1 })
+                .limit(15)
+                .select("action endpoint repoUrl repoSlug statusCode fromCache durationMs createdAt")
+                .lean(),
+            UserActivity.aggregate([
+                { $match: { userId: userObjectId } },
+                { $group: { _id: "$action", count: { $sum: 1 } } },
+                { $sort: { count: -1 } },
+            ]),
+            UserActivity.aggregate([
+                { $match: { userId: userObjectId, fromCache: true, repoSlug: { $ne: null } } },
+                {
+                    $group: {
+                        _id: "$repoSlug",
+                        cacheHits: { $sum: 1 },
+                        lastAccessedAt: { $max: "$createdAt" },
+                        lastAction: { $last: "$action" },
+                    },
+                },
+                { $sort: { lastAccessedAt: -1 } },
+                { $limit: 20 },
+            ]),
+        ]);
+
+        const recentRepoSet = new Set();
+        const recentRepositories = [];
+        for (const activity of recentActivities) {
+            const slug = activity && typeof activity.repoSlug === "string" ? activity.repoSlug : null;
+            if (!slug || recentRepoSet.has(slug)) continue;
+            recentRepoSet.add(slug);
+            recentRepositories.push({
+                repoSlug: slug,
+                lastAction: activity.action || "REPO_ACTION",
+                lastStatusCode: typeof activity.statusCode === "number" ? activity.statusCode : 0,
+                lastAccessedAt: activity.createdAt || null,
+                fromCache: Boolean(activity.fromCache),
+            });
+            if (recentRepositories.length >= 20) break;
+        }
+
+        const payload = {
+            user: {
+                id: user._id,
+                username: user.username,
+                email: user.email,
+                createdAt: user.createdAt,
+                updatedAt: user.updatedAt,
+            },
+            cumulative: {
+                totalActivities,
+                totalRepositories: Array.isArray(distinctRepoSlugs) ? distinctRepoSlugs.length : 0,
+                cachedActivities: cacheHitActivities,
+                mostUsedActions: Array.isArray(byActionAgg)
+                    ? byActionAgg.slice(0, 8).map((row) => ({ action: row._id, count: row.count }))
+                    : [],
+            },
+            recentActivities: Array.isArray(recentActivities)
+                ? recentActivities.map((activity) => ({
+                    action: activity.action || "REPO_ACTION",
+                    endpoint: activity.endpoint || "",
+                    repoUrl: activity.repoUrl || null,
+                    repoSlug: activity.repoSlug || null,
+                    statusCode: typeof activity.statusCode === "number" ? activity.statusCode : 0,
+                    fromCache: Boolean(activity.fromCache),
+                    durationMs: typeof activity.durationMs === "number" ? activity.durationMs : 0,
+                    createdAt: activity.createdAt || null,
+                }))
+                : [],
+            recentRepositories,
+            cachedRepositories: Array.isArray(cachedRepositoriesAgg)
+                ? cachedRepositoriesAgg.map((row) => ({
+                    repoSlug: row._id,
+                    cacheHits: row.cacheHits,
+                    lastAction: row.lastAction || "REPO_ACTION",
+                    lastAccessedAt: row.lastAccessedAt || null,
+                }))
+                : [],
+        };
+
+        return res.json(payload);
+    } catch (err) {
+        return res.status(500).json({
+            message: "Unable to load user dashboard.",
+            ...(process.env.NODE_ENV !== "production" ? { error: err && err.message ? err.message : "unknown" } : {}),
+        });
     }
 };
