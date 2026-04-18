@@ -17,5 +17,6 @@ router.post("/malware-check", auth, malwareCheckRepository);
 router.post("/malware-zip-scan", auth, malwareZipScanRepository);
 router.post("/malware-combined-scan", auth, malwareCombinedScanRepository);
 router.post("/malware-pipeline-scan", auth, malwarePipelineScanRepository);
+router.post("/anomaly-scan", auth, malwarePipelineScanRepository); // same endpoint, different logic inside
 
 module.exports = router;
