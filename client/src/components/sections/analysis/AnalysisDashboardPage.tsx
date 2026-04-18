@@ -637,10 +637,40 @@ const AnalysisDashboardPage: React.FC<AnalysisDashboardPageProps> = ({ config })
             </div>
 
             {isLoading && (
-              <div className={isDark ? 'flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 p-10 shadow-xl' : 'flex items-center justify-center rounded-2xl border border-gray-100 bg-white p-10 shadow-xl'}>
-                <div className={isDark ? 'flex items-center gap-4 text-blue-100' : 'flex items-center gap-4 text-gray-700'}>
-                  <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600"></div>
-                  <span className="text-lg font-medium">{loadingLabel}</span>
+              <div className={isDark ? 'rounded-2xl border border-white/10 bg-white/5 p-6 shadow-xl md:p-8' : 'rounded-2xl border border-gray-100 bg-white p-6 shadow-xl md:p-8'}>
+                <div className="mx-auto max-w-4xl space-y-5">
+                  <div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-400/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cyan-100">
+                    <span className="h-2 w-2 animate-pulse rounded-full bg-cyan-300"></span>
+                    Analysis In Progress
+                  </div>
+
+                  <div className="relative overflow-hidden rounded-2xl border border-blue-300/20 bg-black/60 shadow-[0_14px_34px_rgba(2,6,23,0.5)]">
+                    <video
+                      className="h-auto w-full"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="auto"
+                      controls={false}
+                    >
+                      <source src="/videos/Video.Guru_20260417_190512318.mp4" type="video/mp4" />
+                    </video>
+
+                    <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-slate-950/75 via-slate-950/10 to-transparent"></div>
+
+                    <div className="absolute inset-x-0 bottom-0 p-4 md:p-5">
+                      <p className="text-base font-semibold text-white md:text-lg">{loadingLabel}</p>
+                      <div className="mt-2 flex items-center gap-2 text-xs text-blue-100/90 md:text-sm">
+                        <span className="h-2 w-2 animate-pulse rounded-full bg-blue-300"></span>
+                        <span className="h-2 w-2 animate-pulse rounded-full bg-blue-300 [animation-delay:150ms]"></span>
+                        <span className="h-2 w-2 animate-pulse rounded-full bg-blue-300 [animation-delay:300ms]"></span>
+                        <span className="ml-1">Gathering repository signals and preparing dashboard output</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <p className={isDark ? 'text-xs text-blue-200/80' : 'text-xs text-gray-600'}>This screen updates automatically when the analysis completes.</p>
                 </div>
               </div>
             )}

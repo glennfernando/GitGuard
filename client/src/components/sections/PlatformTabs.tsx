@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Shield, Users, GraduationCap, Lock } from 'lucide-react'
+import { Shield, GraduationCap, Lock } from 'lucide-react'
 import Button from '../ui/Button'
 import Image from 'next/image'
 import gsap from 'gsap'
@@ -12,7 +12,7 @@ const PlatformTabs: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
   const autoSwitchIntervalMs = 4500
-  const totalTabs = 5
+  const totalTabs = 4
 
   useEffect(() => {
     const handleScroll = () => {
@@ -65,17 +65,6 @@ const PlatformTabs: React.FC = () => {
       href: '/platform'
     },
     {
-      id: 'verdict',
-      title: 'Verdict Engine',
-      preTitle: 'Classification Module',
-      description: 'Generate deterministic outcomes from score, categories, and dataset signals',
-      content: 'GitGuard classifies repositories into SAFE, SUSPICIOUS, MALICIOUS, or DANGEROUS DATASET using explicit rules, high-risk category combinations, and confidence checks.',
-      videoSrc: null,
-      imageSrc: '/images/verdict.png',
-      icon: Users,
-      href: '/platform'
-    },
-    {
       id: 'cache',
       title: 'Caching & Performance',
       preTitle: 'Cache Module',
@@ -124,7 +113,7 @@ const PlatformTabs: React.FC = () => {
             <div className="h-px bg-white/20 w-20"></div>
           </div>
           <h3 className="text-3xl md:text-4xl font-bold text-white max-w-4xl mx-auto">
-            From repository intake to malware verdict, each stage is explicit and auditable
+            From repository intake to secure workflows, each stage is explicit and auditable
           </h3>
         </motion.div>
 

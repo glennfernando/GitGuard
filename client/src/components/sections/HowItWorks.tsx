@@ -56,7 +56,11 @@ const HowItWorks: React.FC = () => {
   }, [])
 
   return (
-    <section ref={sectionRef} className="py-16 bg-white">
+    <section ref={sectionRef} className="relative overflow-hidden py-16 bg-linear-to-b from-[#0c1628] via-[#0e1a2e] to-[#0a1323]">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-1/4 top-14 h-64 w-64 rounded-full bg-blue-500/14 blur-3xl"></div>
+        <div className="absolute bottom-8 right-1/4 h-56 w-56 rounded-full bg-cyan-400/10 blur-3xl"></div>
+      </div>
       <div className="container mx-auto px-4" ref={contentRef}>
         <motion.div
           className="text-center mb-16"
@@ -66,13 +70,13 @@ const HowItWorks: React.FC = () => {
           viewport={{ once: true }}
         >
           <div className="inline-flex items-center justify-center mb-8">
-            <div className="h-px bg-gray-300 w-20"></div>
-            <h2 className="px-6 text-2xl font-semibold uppercase tracking-wider text-gray-900">
+            <div className="h-px bg-white/20 w-20"></div>
+            <h2 className="px-6 text-2xl font-semibold uppercase tracking-wider text-[#c7dcf6]">
               How It Works
             </h2>
-            <div className="h-px bg-gray-300 w-20"></div>
+            <div className="h-px bg-white/20 w-20"></div>
           </div>
-          <h3 className="text-3xl md:text-4xl font-bold text-gray-900 max-w-4xl mx-auto">
+          <h3 className="text-3xl md:text-4xl font-bold text-white max-w-4xl mx-auto">
             Get comprehensive repository insights in four simple steps
           </h3>
         </motion.div>
@@ -100,16 +104,16 @@ const HowItWorks: React.FC = () => {
                 hidden: { opacity: 0, y: 16 },
                 visible: { opacity: 1, y: 0 }
               }}
-              className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+              className="rounded-2xl border border-white/10 bg-linear-to-br from-[#11213a] to-[#1a2f4d] p-6 shadow-[0_16px_30px_rgba(3,10,22,0.35)] transition-all duration-300 hover:-translate-y-1 hover:border-blue-300/30 hover:shadow-[0_20px_38px_rgba(3,10,22,0.55)]"
             >
               <div className="flex items-center justify-between mb-4">
-                <span className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Step {item.step}</span>
-                <div className="h-10 w-10 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center">
+                <span className="text-sm font-semibold text-[#9fb7d6] uppercase tracking-wide">Step {item.step}</span>
+                <div className="h-10 w-10 rounded-lg border border-blue-300/20 bg-blue-500/15 text-blue-200 flex items-center justify-center">
                   <item.icon className="w-5 h-5" />
                 </div>
               </div>
-              <h4 className="text-xl font-semibold text-gray-900 mb-3">{item.title}</h4>
-              <p className="text-sm text-gray-600 leading-relaxed">{item.description}</p>
+              <h4 className="text-xl font-semibold text-white mb-3">{item.title}</h4>
+              <p className="text-sm text-[#b3c4d9] leading-relaxed">{item.description}</p>
             </motion.article>
           ))}
         </motion.div>
