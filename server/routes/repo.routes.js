@@ -9,6 +9,8 @@ const {
   malwareZipScanRepository,
   malwareCombinedScanRepository,
   malwarePipelineScanRepository,
+  userAnomalyProfileRepository,
+  collaboratorOutliersRepository,
 } = require("../controllers/repo.controllers");
 
 router.post("/analyze", auth, analyzeRepository);
@@ -18,5 +20,7 @@ router.post("/malware-zip-scan", auth, malwareZipScanRepository);
 router.post("/malware-combined-scan", auth, malwareCombinedScanRepository);
 router.post("/malware-pipeline-scan", auth, malwarePipelineScanRepository);
 router.post("/anomaly-scan", auth, malwarePipelineScanRepository); // same endpoint, different logic inside
+router.post("/user-anomaly-profile", auth, userAnomalyProfileRepository);
+router.post("/collaborator-outliers", auth, collaboratorOutliersRepository);
 
 module.exports = router;
